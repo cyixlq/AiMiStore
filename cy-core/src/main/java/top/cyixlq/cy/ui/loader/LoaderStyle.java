@@ -1,4 +1,4 @@
-package top.cyixlq.cy.ui;
+package top.cyixlq.cy.ui.loader;
 
 public enum LoaderStyle {
     BallPulseIndicator,

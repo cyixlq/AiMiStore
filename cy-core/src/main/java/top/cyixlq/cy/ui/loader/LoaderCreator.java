@@ -1,4 +1,4 @@
-package top.cyixlq.cy.ui;
+package top.cyixlq.cy.ui.loader;
 
 import android.content.Context;
 import android.graphics.Color;

@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import top.cyixlq.cy.delegates.CyDelegate;
-import top.cyixlq.cy.net.RestClien;
+import top.cyixlq.cy.net.RestClient;
 import top.cyixlq.cy.net.callback.IError;
 import top.cyixlq.cy.net.callback.IFailure;
 import top.cyixlq.cy.net.callback.ISuccess;
@@ -24,13 +24,13 @@ public class TestDelegate extends CyDelegate {
     }
 
     private void testRestClient(){
-        RestClien.builder()
-                .url("https://www.baidu.com/")
+        RestClient.builder()
+                .url("http://127.0.0.1/index")
                 .loader(getContext())
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
+                       Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
                     }
                 })
                 .error(new IError() {

@@ -6,8 +6,8 @@ import android.os.Handler;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import top.cyixlq.cy.ui.CyLoader;
-import top.cyixlq.cy.ui.LoaderStyle;
+import top.cyixlq.cy.ui.loader.CyLoader;
+import top.cyixlq.cy.ui.loader.LoaderStyle;
 
 public class RequestCallbacks implements Callback<String> {
 

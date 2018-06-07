@@ -1,6 +1,7 @@
 package top.cyixlq.cy.app;
 
 import android.content.Context;
+import android.os.Handler;
 
 import java.util.HashMap;
 
@@ -10,17 +11,29 @@ import java.util.HashMap;
 
 public final class Cy {
 
-    public static Configurator init (Context context) {
-        getConfigurations().put(ConfigType.APPLICATION_CONTEXT.name(),
-                context.getApplicationContext());
+    public static Configurator init(Context context) {
+        Configurator.getInstance()
+                .getCyConfigs()
+                .put(ConfigKeys.APPLICATION_CONTEXT, context.getApplicationContext());
         return Configurator.getInstance();
     }
 
-    public static HashMap<String, Object> getConfigurations(){
-        return Configurator.getInstance().getCyConfigs();
+    public static Configurator getConfigurator() {
+        return Configurator.getInstance();
     }
 
-    public static Context getApplicationContext(){
-        return (Context) getConfigurations().get(ConfigType.APPLICATION_CONTEXT.name());
+    public static <T> T getConfiguration(Object key) {
+        return getConfigurator().getConfiguration((Enum<ConfigKeys>) key);
+    }
+
+    public static Context getApplicationContext() {
+        return getConfiguration(ConfigKeys.APPLICATION_CONTEXT);
+    }
+
+    public static Handler getHandler() {
+        return getConfiguration(ConfigKeys.HANDLER);
+    }
+
+    public static void test(){
     }
 }
