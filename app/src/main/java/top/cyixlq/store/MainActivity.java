@@ -8,6 +8,8 @@ import top.cyixlq.cy.activities.ProxyActivity;
 import top.cyixlq.cy.delegates.CyDelegate;
 import top.cyixlq.cy.ec.launcher.LauncherDelegate;
 import top.cyixlq.cy.ec.launcher.LauncherScrollDelegate;
+import top.cyixlq.cy.ec.sign.SignInDelegate;
+import top.cyixlq.cy.ec.sign.SignUpDelegate;
 
 public class MainActivity extends ProxyActivity {
 
@@ -22,7 +24,7 @@ public class MainActivity extends ProxyActivity {
 
     @Override
     public CyDelegate setRootdelegate() {
-        return new LauncherDelegate();
+        return new SignInDelegate();
     }
 
 //    @Override

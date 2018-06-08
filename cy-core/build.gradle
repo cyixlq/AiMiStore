@@ -25,43 +25,52 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':cy-annotations')
-//    需要对外公开的ANdroid公开库
+    // 需要对外公开的Android公开库
     api 'com.android.support:appcompat-v7:26.1.0'
+    api 'com.android.support:support-v4:26.1.0'
+    api 'com.android.support:design:26.1.0'
     api 'com.android.support.constraint:constraint-layout:1.1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
-//    字体库（对外公开）
+    // 字体库（对外公开）
     api 'com.joanzapata.iconify:android-iconify-ionicons:2.2.2' // (v2.0.1)
     api 'com.joanzapata.iconify:android-iconify-fontawesome:2.2.2' // (v4.5)
 
-//    Fragment库（对外公开，人家封装好的）
+    // Fragment库（对外公开，人家封装好的）
     api 'me.yokeyword:fragmentation:1.3.4'
     api 'me.yokeyword:fragmentation-swipeback:1.3.4'
 
-//    ButterKnife依赖（黄油刀，对外公开）
+    // ButterKnife依赖（黄油刀，对外公开）
     api 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 
-//    网络请求
+    // 网络请求
     api 'com.squareup.retrofit2:retrofit:2.4.0'
     api 'com.squareup.okio:okio:1.13.0'
     api 'com.squareup.okhttp3:okhttp:3.8.1'
     api 'com.squareup.retrofit2:converter-scalars:2.3.0'
 
-//    加载动画图标
+    // 加载动画图标
     implementation 'com.wang.avi:library:2.1.3'
 
-//    RxJava相关
+    // RxJava相关
     implementation 'io.reactivex.rxjava2:rxjava:2.1.14'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
 
-//    轮播图组件
+    // 轮播图组件
     api 'com.bigkoo:convenientbanner:2.0.5'
     api 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
 
-//    JSON解析依赖
+    // JSON解析依赖
     api 'com.alibaba:fastjson:1.2.47'
+
+    //打印出漂亮的Log
+    api 'com.orhanobut:logger:2.2.0'
+
+    //数据库ORM
+    api 'org.greenrobot:greendao:3.2.2'
+    api 'org.greenrobot:greendao-generator:3.2.2'
 }

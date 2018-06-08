@@ -3,6 +3,8 @@ package top.cyixlq.store;
 import android.app.Application;
 
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 
 import top.cyixlq.cy.app.Cy;
 import top.cyixlq.cy.ec.icon.FontEcModule;
@@ -16,6 +18,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Logger.addLogAdapter(new AndroidLogAdapter());
         Cy.init(this)
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontEcModule())
