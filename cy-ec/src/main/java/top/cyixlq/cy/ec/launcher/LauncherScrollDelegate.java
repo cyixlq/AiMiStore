@@ -1,5 +1,6 @@
 package top.cyixlq.cy.ec.launcher;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -9,9 +10,13 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 
 import java.util.ArrayList;
 
+import top.cyixlq.cy.app.AccountManager;
+import top.cyixlq.cy.app.IUserChecker;
 import top.cyixlq.cy.delegates.CyDelegate;
 import top.cyixlq.cy.ec.R;
+import top.cyixlq.cy.ui.launcher.ILauncherListener;
 import top.cyixlq.cy.ui.launcher.LauncherHolderCreator;
+import top.cyixlq.cy.ui.launcher.OnLauncherFinishTag;
 import top.cyixlq.cy.ui.launcher.ScrollLauncherTag;
 import top.cyixlq.cy.util.storage.CyPreference;
 
@@ -19,6 +24,7 @@ public class LauncherScrollDelegate extends CyDelegate implements OnItemClickLis
 
     private ConvenientBanner<Integer> mConvenientBanner = null;
     private static final ArrayList<Integer> INTEGERS = new ArrayList<>();
+    private ILauncherListener mILauncherListener;
 
     private void initBanner() {
         INTEGERS.add(R.mipmap.launcher_01);
@@ -40,6 +46,14 @@ public class LauncherScrollDelegate extends CyDelegate implements OnItemClickLis
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof ILauncherListener){
+            this.mILauncherListener = (ILauncherListener) activity;
+        }
+    }
+
+    @Override
     public void onBindeView(@Nullable Bundle savedInstanceState, View rootView) {
         initBanner();
     }
@@ -49,7 +63,22 @@ public class LauncherScrollDelegate extends CyDelegate implements OnItemClickLis
         //如果点击的是最后一个
         if(position == INTEGERS.size()-1){
             CyPreference.setAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name(), true);
-            //TODO:检查用户是否登录了APP
+            //检查用户是否登陆了APP
+            AccountManager.checkAccount(new IUserChecker() {
+                @Override
+                public void onSignIn() {
+                    if(mILauncherListener!=null){
+                        mILauncherListener.onLauncherFinish(OnLauncherFinishTag.SIGNED);
+                    }
+                }
+
+                @Override
+                public void onNotSignIn() {
+                    if(mILauncherListener!=null){
+                        mILauncherListener.onLauncherFinish(OnLauncherFinishTag.NOT_SIGNED);
+                    }
+                }
+            });
         }
     }
 }

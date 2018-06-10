@@ -1,5 +1,6 @@
 package top.cyixlq.cy.ec.launcher;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatTextView;
@@ -10,9 +11,13 @@ import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import top.cyixlq.cy.app.AccountManager;
+import top.cyixlq.cy.app.IUserChecker;
 import top.cyixlq.cy.delegates.CyDelegate;
 import top.cyixlq.cy.ec.R;
 import top.cyixlq.cy.ec.R2;
+import top.cyixlq.cy.ui.launcher.ILauncherListener;
+import top.cyixlq.cy.ui.launcher.OnLauncherFinishTag;
 import top.cyixlq.cy.ui.launcher.ScrollLauncherTag;
 import top.cyixlq.cy.util.storage.CyPreference;
 import top.cyixlq.cy.util.timer.BaseTimerTask;
@@ -25,6 +30,8 @@ public class LauncherDelegate extends CyDelegate implements ITimerListener {
 
     private Timer mTimer = null;
     private int mCount = 5;
+    private ILauncherListener mILauncherListener = null;
+
 
     @OnClick(R2.id.tv_launcher_timer)
     void onClickTimerView() {
@@ -42,6 +49,14 @@ public class LauncherDelegate extends CyDelegate implements ITimerListener {
     }
 
     @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof ILauncherListener){
+            this.mILauncherListener = (ILauncherListener) activity;
+        }
+    }
+
+    @Override
     public Object setLayout() {
         return R.layout.delegate_launcher;
     }
@@ -56,7 +71,22 @@ public class LauncherDelegate extends CyDelegate implements ITimerListener {
         if (!CyPreference.getAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name())) {
             start(new LauncherScrollDelegate(), SINGLETASK);
         } else {
-            //TODO:检查用户是否登录了APP
+            //检查用户是否登陆了APP
+            AccountManager.checkAccount(new IUserChecker() {
+                @Override
+                public void onSignIn() {
+                    if(mILauncherListener!=null){
+                        mILauncherListener.onLauncherFinish(OnLauncherFinishTag.SIGNED);
+                    }
+                }
+
+                @Override
+                public void onNotSignIn() {
+                    if(mILauncherListener!=null){
+                        mILauncherListener.onLauncherFinish(OnLauncherFinishTag.NOT_SIGNED);
+                    }
+                }
+            });
         }
     }
 
@@ -66,7 +96,7 @@ public class LauncherDelegate extends CyDelegate implements ITimerListener {
             @Override
             public void run() {
                 if (mTvTimer != null) {
-                    mTvTimer.setText(MessageFormat.format("跳过\n{0}s", mCount));
+                     mTvTimer.setText(MessageFormat.format("跳过\n{0}s", mCount));
                     mCount--;
                     if (mCount < 0) {
                         if (mTimer != null) {
