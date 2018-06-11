@@ -1,3 +1,46 @@
 {
-  "key": "value"
+  "code": 200,
+  "total": 6,
+  "page_size": 1,
+  "data": [
+    {
+      "goodsId": 0,
+      "spanSize": 4,
+      "banners": [
+        "https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/7e21aab907a19f69155066a8bbdd9d88.jpg?thumb=1&w=720&h=360",
+        "https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/c7d9e1df5a25cebb486167530e7d08af.jpg?thumb=1&w=720&h=360",
+        "https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/37dfdc929ee9a4313facb0b23ebcd721.jpg?thumb=1&w=720&h=360"
+      ]
+    },
+    {
+      "goodsId": 1,
+      "spanSize": 4,
+      "text": "测试描述",
+      "imageUrl": "https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/0410003964415623c74234abef89534a.jpg?thumb=1&w=720&h=360"
+
+    },
+    {
+      "goodsId": 2,
+      "spanSize": 2,
+      "text": "测试描述2",
+      "imageUrl": "https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/572c0789863a3164dffc21dd3d9a1c38.jpg?thumb=1&w=358&h=252"
+    },
+    {
+      "goodsId": 3,
+      "spanSize": 2,
+      "text": "测试描述3",
+      "imageUrl": "https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/572c0789863a3164dffc21dd3d9a1c38.jpg?thumb=1&w=358&h=252"
+    },
+    {
+      "goodsId": 4,
+      "spanSize": 4,
+      "imageUrl": "https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/572c0789863a3164dffc21dd3d9a1c38.jpg?thumb=1&w=358&h=252"
+    },
+    {
+      "goodsId": 5,
+      "spanSize": 4,
+      "imageUrl": "https://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/572c0789863a3164dffc21dd3d9a1c38.jpg?thumb=1&w=358&h=252"
+    }
+  ],
+  "msg": null
 }

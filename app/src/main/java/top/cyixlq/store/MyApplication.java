@@ -4,8 +4,6 @@ import android.app.Application;
 
 import com.facebook.stetho.Stetho;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
-import com.orhanobut.logger.AndroidLogAdapter;
-import com.orhanobut.logger.Logger;
 
 import top.cyixlq.cy.app.Cy;
 import top.cyixlq.cy.ec.database.DatabaseManager;
@@ -20,7 +18,6 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Logger.addLogAdapter(new AndroidLogAdapter());
         Cy.init(this)
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontEcModule())
