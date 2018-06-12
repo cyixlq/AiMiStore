@@ -23,16 +23,18 @@ public class MyApplication extends Application {
                 .withIcon(new FontEcModule())
                 .withLoaderDelayed(1000)
                 .withApiHost("http://192.168.0.113:8081")
-                .withInterceptor(new DebugInterceptor("index",R.raw.test))
+                .withInterceptor(new DebugInterceptor("index", R.raw.test))
+                .withInterceptor(new DebugInterceptor("menu", R.raw.menu))
+                .withInterceptor(new DebugInterceptor("content", R.raw.content))
                 .configure();
         DatabaseManager.getInstance().init(this);
         initStetho();
     }
 
-    private void initStetho(){
+    private void initStetho() {
         Stetho.initialize(Stetho.newInitializerBuilder(this)
-                            .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
-                            .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
-                            .build());
+                .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+                .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+                .build());
     }
 }

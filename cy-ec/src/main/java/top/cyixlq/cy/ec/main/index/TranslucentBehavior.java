@@ -19,7 +19,7 @@ public class TranslucentBehavior extends CoordinatorLayout.Behavior<Toolbar> {
     //颜色变化速度
     private static final int SHOW_SPEED = 3;
     //定义变化颜色
-    private final RgbValue RGB_VALUE = RgbValue.create(255, 124, 2);
+    private final RgbValue RGB_VALUE = RgbValue.create(255, 187, 51);
 
     public TranslucentBehavior(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -46,9 +46,9 @@ public class TranslucentBehavior extends CoordinatorLayout.Behavior<Toolbar> {
         if (mDistanceY > 0 && mDistanceY <= targetHeight) {
             final float scale = (float) mDistanceY / targetHeight;
             final float alpha = scale * 255;
-            child.setBackgroundColor(Color.argb((int) alpha, RGB_VALUE.red(), RGB_VALUE.green(), RGB_VALUE.blue()));
+            child.setBackgroundColor(Color.argb((int) alpha, 255, 187, 51));
         } else if (mDistanceY>targetHeight){
-            child.setBackgroundColor(Color.rgb(RGB_VALUE.red(), RGB_VALUE.green(), RGB_VALUE.blue()));
+            child.setBackgroundColor(Color.rgb(255, 187, 51));
         }
 
     }
