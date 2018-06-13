@@ -45,9 +45,9 @@ public class TranslucentBehavior extends CoordinatorLayout.Behavior<Toolbar> {
         //当滑动时，并且距离小于toolbar的高度的时候，调整渐变颜色
         if (mDistanceY > 0 && mDistanceY <= targetHeight) {
             final float scale = (float) mDistanceY / targetHeight;
-            final float alpha = scale * 255;
+            final float alpha = 255 - (scale * 255);
             child.setBackgroundColor(Color.argb((int) alpha, 255, 187, 51));
-        } else if (mDistanceY>targetHeight){
+        } else if (mDistanceY<targetHeight){
             child.setBackgroundColor(Color.rgb(255, 187, 51));
         }
 

@@ -18,7 +18,7 @@ import top.cyixlq.cy.net.callback.ISuccess;
 public class ContentDelegate extends CyDelegate {
 
     private static final String ARG_CONTENT_ID = "CONTENT_ID";
-    private int mContentId = -1;
+    private int mContentId = 1;
     private List<SectionBean> mData = null;
 
     @BindView(R2.id.rv_list_content)
@@ -47,7 +47,7 @@ public class ContentDelegate extends CyDelegate {
     }
 
     private void initData() {
-        RestClient.builder().url("content")
+        RestClient.builder().url("/buyer/category/"+mContentId)
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {

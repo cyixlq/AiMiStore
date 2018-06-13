@@ -34,7 +34,7 @@ public class SectionAdapter extends BaseSectionQuickAdapter<SectionBean, BaseVie
         //item.t返回SectionBean类型
         final String thumb = item.t.getGoodsThumb();
         final String name = item.t.getGoodsName();
-        final int goodsId = item.t.getGoodsId();
+        final String goodsId = item.t.getGoodsId();
         final SectionContentItemEntity entity = item.t;
         helper.setText(R.id.tv, name);
         final AppCompatImageView goodsImageView = helper.getView(R.id.iv);

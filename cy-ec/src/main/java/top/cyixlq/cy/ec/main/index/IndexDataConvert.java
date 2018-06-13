@@ -35,7 +35,7 @@ public class IndexDataConvert extends DataConverter {
         for (int i = 0; i < productSize; i++) {
             final JSONObject data = products.getJSONObject(i);
             final String imgUrl = data.getString("imageUrl");
-            final String text = data.getString("name");
+            final String name = data.getString("name");
             final int sort = data.getInteger("sort");
             final String id = data.getString("id");
             int type = 0;
@@ -44,7 +44,7 @@ public class IndexDataConvert extends DataConverter {
                 type = ItemType.TEXT_IMAGE;
                 spanSize = 4;
 
-            } else if (sort == 2) {
+            } else {
                 type = ItemType.TEXT_IMAGE;
                 spanSize = 2;
             }
@@ -52,7 +52,7 @@ public class IndexDataConvert extends DataConverter {
                     .setField(MultipleFields.ITEM_TYPE, type)
                     .setField(MultipleFields.SPAN_SIZE, spanSize)
                     .setField(MultipleFields.ID, id)
-                    .setField(MultipleFields.TEXT, text)
+                    .setField(MultipleFields.TEXT, name)
                     .setField(MultipleFields.IMAGE_URL, imgUrl)
                     .build();
             ENTYTIES.add(entity);

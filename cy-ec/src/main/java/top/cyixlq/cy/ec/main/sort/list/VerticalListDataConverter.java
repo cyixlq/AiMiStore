@@ -17,8 +17,7 @@ public final class VerticalListDataConverter extends DataConverter {
     public ArrayList<MultipleItemEntity> convert() {
 
         final ArrayList<MultipleItemEntity> dataList = new ArrayList<>();
-        final JSONArray dataArray = JSON.parseObject(getJsonData())
-                .getJSONArray("data");
+        final JSONArray dataArray = JSON.parseObject(getJsonData()).getJSONArray("data");
         final int size = dataArray.size();
         for (int i = 0; i < size; i++) {
             final JSONObject data = dataArray.getJSONObject(i);

@@ -45,12 +45,11 @@ public class VerticalListDelegate extends CyDelegate {
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         RestClient.builder()
-                .url("http://127.0.0.1/menu")
+                .url("/buyer/category/0")
                 .loader(getContext())
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        Toast.makeText(getContext(), response, Toast.LENGTH_SHORT).show();
                         final List<MultipleItemEntity> data =
                                 new VerticalListDataConverter().setJsonData(response).convert();
                         final SortDelegate delegate = getParentDelegate();
