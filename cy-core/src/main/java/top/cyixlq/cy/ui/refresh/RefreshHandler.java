@@ -58,9 +58,9 @@ public class RefreshHandler implements SwipeRefreshLayout.OnRefreshListener,
                 .success(new ISuccess() {
                     @Override
                     public void onSuccess(String response) {
-                        final JSONObject object = JSON.parseObject(response);
-                        BEAN.setTotal(object.getInteger("total"))
-                                .setPageSize(object.getInteger("page_size"));
+                        final JSONObject object = JSON.parseObject(response).getJSONObject("data").getJSONObject("page");
+                        BEAN.setTotal(object.getInteger("totalPages"))
+                                .setPageSize(object.getInteger("size"));
                         //设置Adapter
                         mAdapter = MultipleRecyclerAdapter.create(CONVERTER.setJsonData(response));
                         mAdapter.setOnLoadMoreListener(RefreshHandler.this, RECYCLERVIEW);

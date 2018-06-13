@@ -70,7 +70,7 @@ public class IndexDelegate extends BottomItemDelegate {
         super.onLazyInitView(savedInstanceState);
         initRefreshLayout();
         initRecyclerView();
-        mRefreshHandler.firstPage("index.php");
+        mRefreshHandler.firstPage("/buyer/home");
     }
 
     @Override
