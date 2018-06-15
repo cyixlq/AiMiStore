@@ -25,19 +25,17 @@ public class Router {
 
     public final boolean handleWebUrl(WebDelegate delegate, String url) {
 
-        //如果是拨打电话的协议
+        //如果是电话协议
         if (url.contains("tel:")) {
             callPhone(delegate.getContext(), url);
             return true;
         }
 
-        final CyDelegate parentDelegate = delegate.getParentDelegate();
+        final CyDelegate topDelegate = delegate.getTopDelegate();
+
         final WebDelegateImpl webDelegate = WebDelegateImpl.create(url);
-        if (null == parentDelegate) {
-            delegate.start(webDelegate);
-        } else {
-            parentDelegate.start(webDelegate);
-        }
+        topDelegate.getSupportDelegate().start(webDelegate);
+
         return true;
     }
 
@@ -45,7 +43,7 @@ public class Router {
         if (webView != null) {
             webView.loadUrl(url);
         } else {
-            throw new NullPointerException("WebView对象是空的，无法进行网址跳转！");
+            throw new NullPointerException("WebView is null!");
         }
     }
 
@@ -61,13 +59,13 @@ public class Router {
         }
     }
 
-    public void loadPage(WebDelegate delegate, String url){
+    public final void loadPage(WebDelegate delegate, String url) {
         loadPage(delegate.getWebView(), url);
     }
 
-    private void callPhone(Context context, String url) {
+    private void callPhone(Context context, String uri) {
         final Intent intent = new Intent(Intent.ACTION_DIAL);
-        final Uri data = Uri.parse(url);
+        final Uri data = Uri.parse(uri);
         intent.setData(data);
         ContextCompat.startActivity(context, intent, null);
     }

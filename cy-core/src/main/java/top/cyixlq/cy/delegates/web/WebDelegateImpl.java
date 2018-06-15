@@ -11,7 +11,7 @@ import top.cyixlq.cy.delegates.web.client.WebViewClientImpl;
 import top.cyixlq.cy.delegates.web.router.Router;
 import top.cyixlq.cy.delegates.web.router.RouterKeys;
 
-public class WebDelegateImpl extends WebDelegate implements IWebViewIntializer {
+public class WebDelegateImpl extends WebDelegate implements IWebViewInitializer {
 
     public static WebDelegateImpl create(String url){
         final Bundle args = new Bundle();
@@ -19,11 +19,6 @@ public class WebDelegateImpl extends WebDelegate implements IWebViewIntializer {
         final WebDelegateImpl delegate = new WebDelegateImpl();
         delegate.setArguments(args);
         return delegate;
-    }
-
-    @Override
-    public IWebViewIntializer setIntializer() {
-        return this;
     }
 
     @Override
@@ -53,5 +48,10 @@ public class WebDelegateImpl extends WebDelegate implements IWebViewIntializer {
     @Override
     public WebChromeClient initWebChromeClient() {
         return null;
+    }
+
+    @Override
+    public IWebViewInitializer setInitializer() {
+        return this;
     }
 }

@@ -8,20 +8,23 @@ import android.webkit.WebView;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
 
+import top.cyixlq.cy.app.ConfigKeys;
+import top.cyixlq.cy.app.Cy;
 import top.cyixlq.cy.delegates.CyDelegate;
 import top.cyixlq.cy.delegates.web.router.RouterKeys;
 
 public abstract class WebDelegate extends CyDelegate {
 
-    private WebView mWebView;
+    private WebView mWebView = null;
     private final ReferenceQueue<WebView> WEB_VIEW_QUEUE = new ReferenceQueue<>();
-    private String mUrl;
-    private boolean mIsWebViewAbilable = false;
+    private String mUrl = null;
+    private boolean mIsWebViewAvailable = false;
+    private CyDelegate mTopDelegate = null;
 
     public WebDelegate() {
     }
 
-    public abstract IWebViewIntializer setIntializer();
+    public abstract IWebViewInitializer setInitializer();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,32 +40,44 @@ public abstract class WebDelegate extends CyDelegate {
             mWebView.removeAllViews();
             mWebView.destroy();
         } else {
-            final IWebViewIntializer intializer = setIntializer();
-            if (intializer != null) {
+            final IWebViewInitializer initializer = setInitializer();
+            if (initializer != null) {
                 final WeakReference<WebView> webViewWeakReference =
                         new WeakReference<>(new WebView(getContext()), WEB_VIEW_QUEUE);
                 mWebView = webViewWeakReference.get();
-                mWebView = intializer.initWebView(mWebView);
-                mWebView.setWebViewClient(intializer.initWebViewClient());
-                mWebView.setWebChromeClient(intializer.initWebChromeClient());
-                mWebView.addJavascriptInterface(CyWebInterface.create(this), "cy");
-                mIsWebViewAbilable = true;
+                mWebView = initializer.initWebView(mWebView);
+                mWebView.setWebViewClient(initializer.initWebViewClient());
+                mWebView.setWebChromeClient(initializer.initWebChromeClient());
+                //final String name = Cy.getConfiguration(ConfigKeys.JAVASCRIPT_INTERFACE);
+                //mWebView.addJavascriptInterface(CyWebInterface.create(this), name);
+                mIsWebViewAvailable = true;
             } else {
-                throw new NullPointerException("IWebViewIntializer对象为空！无法创建webview！");
+                throw new NullPointerException("Initializer is null!");
             }
         }
     }
 
-    public WebView getWebView() {
-        if (mWebView == null) {
-            throw new NullPointerException("WebView对象为空！");
-        }
-        return mIsWebViewAbilable ? mWebView : null;
+    public void setTopDelegate(CyDelegate delegate) {
+        mTopDelegate = delegate;
     }
 
-    public String getUrl(){
+    public CyDelegate getTopDelegate() {
+        if (mTopDelegate == null) {
+            mTopDelegate = this;
+        }
+        return mTopDelegate;
+    }
+
+    public WebView getWebView() {
         if (mWebView == null) {
-            throw new NullPointerException("Url值为空！");
+            throw new NullPointerException("WebView IS NULL!");
+        }
+        return mIsWebViewAvailable ? mWebView : null;
+    }
+
+    public String getUrl() {
+        if (mUrl == null) {
+            throw new NullPointerException("WebView IS NULL!");
         }
         return mUrl;
     }
@@ -86,7 +101,7 @@ public abstract class WebDelegate extends CyDelegate {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mIsWebViewAbilable = false;
+        mIsWebViewAvailable = false;
     }
 
     @Override

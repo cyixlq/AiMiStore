@@ -1,16 +1,19 @@
 package top.cyixlq.cy.delegates.web;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 public class WebViewInitializer {
 
+    @SuppressLint("SetJavaScriptEnabled")
     public WebView createWebView(WebView webView) {
+
         WebView.setWebContentsDebuggingEnabled(true);
-        //不启用横向滚动条
+        //不能横向滚动
         webView.setHorizontalScrollBarEnabled(false);
-        //不启用纵向滚动条
+        //不能纵向滚动
         webView.setVerticalScrollBarEnabled(false);
         //允许截图
         webView.setDrawingCacheEnabled(true);
@@ -21,7 +24,10 @@ public class WebViewInitializer {
                 return true;
             }
         });
+        //初始化WebSettings
         final WebSettings settings = webView.getSettings();
+        //开启JavaScript支持
+        settings.setJavaScriptEnabled(true);
         final String ua = settings.getUserAgentString();
         settings.setUserAgentString(ua + "Cy");
         //隐藏缩放控件
@@ -33,11 +39,13 @@ public class WebViewInitializer {
         settings.setAllowFileAccess(true);
         settings.setAllowFileAccessFromFileURLs(true);
         settings.setAllowUniversalAccessFromFileURLs(true);
+        settings.setAllowContentAccess(true);
         //缓存相关
         settings.setAppCacheEnabled(true);
         settings.setDomStorageEnabled(true);
         settings.setDatabaseEnabled(true);
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+
         return webView;
     }
 }
